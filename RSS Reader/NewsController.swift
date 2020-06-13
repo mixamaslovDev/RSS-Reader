@@ -14,6 +14,10 @@ class NewsController: UITableViewController {
     
     var news = [String]()
     var dateNews = [String]()
+    var newsFullText = [String]()
+    var imageNews: String?
+    var arrImages = [String]()
+    
     let myrefreshcontrol: UIRefreshControl = {
         let refreshcontol = UIRefreshControl()
         refreshcontol.addTarget(self, action: #selector(refreshNews(sender:)), for: .valueChanged)
@@ -49,7 +53,18 @@ class NewsController: UITableViewController {
         return cell
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showNewsDetail" {
+            let indexPath = tableView.indexPathForSelectedRow
+            let newVC: DetailNewsController = segue.destination as! DetailNewsController
+            newVC.news = news[indexPath!.row]
+            newVC.fullNews = newsFullText[indexPath!.row]
+            newVC.urlNews = arrImages[indexPath!.row]
+        }
+    }
+    
     func getNews(){
+        URLCache.shared.removeAllCachedResponses()
         let _ = Alamofire.request("http://www.vesti.ru/vesti.rss", method: .get).response {
             response in
             if let data = response.data {
@@ -65,28 +80,23 @@ class NewsController: UITableViewController {
                     elem["title"].element!.text
                 })
                 
+                self.newsFullText = (xml["rss"]["channel"]["item"].all.map{ elem in
+                    elem["yandex:full-text"].element!.text
+                })
+                
                 self.dateNews = (xml["rss"]["channel"]["item"].all.map{ elem in
                     elem["pubDate"].element!.text
                 })
                 
+                for elem in xml["rss"]["channel"]["item"].all {
+                    for i in elem["enclosure"].all {
+                        self.imageNews = i.element?.attribute(by: "url")?.text
+                        self.arrImages.append(self.imageNews ?? "")
+                    }
             }
                 self.table.reloadData()
-        }
-
-    }
-}
-extension UIImageView {
-    func loadImage(stringUrl: String) {
-        DispatchQueue.global().async { [weak self] in
-            if let stringUrl = URL(string: stringUrl) {
-                if let data = try? Data(contentsOf: stringUrl) {
-                    if let image = UIImage(data: data) {
-                        DispatchQueue.main.async {
-                            self?.image = image
-                        }
-                    }
-                }
             }
+            
         }
     }
 }
