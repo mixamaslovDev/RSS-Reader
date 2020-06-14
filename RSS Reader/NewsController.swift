@@ -28,7 +28,6 @@ class NewsController: UITableViewController {
     }()
     
     @IBOutlet weak var table: UITableView!
-    @IBOutlet weak var sportFilterBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,19 +64,46 @@ class NewsController: UITableViewController {
         }
     }
     
-
+    /// Очистка кэш URL запросов
+    func clearURLCache(){
+    URLCache.shared.removeAllCachedResponses()
+    }
     
-    /// Получение данных новостей
+    // MARK: - Фильтр по категории спорт
+    @IBAction func filterSport(_ sender: UIButton) {
+        news = [String]()
+        clearURLCache()
+        let _ = Alamofire.request("http://www.vesti.ru/vesti.rss", method: .get).response {
+            response in
+            if let data = response.data {
+                let xml = SWXMLHash.parse(data)
+                for elem in xml["rss"]["channel"]["item"].all {
+                    let elem = elem
+                        .filterChildren { _, index in index == 3 || index == 5
+                    }
+                    let elemCat = elem["category"].element!.text
+                    if (elemCat.contains("Спорт")) {
+                        self.category = elem["description"].element?.text
+                        
+                        self.news.append(self.category ?? "")
+                    }
+                }
+                self.table.reloadData()
+            }
+        }
+    }
+    
+    // MARK: - Запрос и получение данных
+    
     func getNews(){
-        /// Удаление кэша запроса
-        URLCache.shared.removeAllCachedResponses()
+        clearURLCache()
         /// Запрос к источнику с новостями
         let _ = Alamofire.request("http://www.vesti.ru/vesti.rss", method: .get).response {
             response in
             if let data = response.data {
                 let xml = SWXMLHash.parse(data)
                 do {
-                    let dt: Date = try xml["rss"]["channel"]["item"]["pubDate"].value()
+                    let dt: String = try xml["rss"]["channel"]["item"]["pubDate"].value()
                     print(dt)
                 }
                 catch {
@@ -94,9 +120,9 @@ class NewsController: UITableViewController {
                     elem["yandex:full-text"].element!.text
                 })
                 
-                /// Получение даты новости
+                /// Получение даты публикации новости
                 self.dateNews = (xml["rss"]["channel"]["item"].all.map{ elem in
-                    elem["pubDate"].element!.text
+                    try! elem["pubDate"].value()
                 })
                 
                 /// Получение изображения новости
@@ -106,20 +132,6 @@ class NewsController: UITableViewController {
                         self.arrImages.append(self.imageNews ?? "")
                     }
                 }
-                
-                /// Фильтр новостей по категории
-                for elem in xml["rss"]["channel"]["item"].all {
-                    let elem = elem
-                        .filterChildren { _, index in index == 3 || index == 5
-                    }
-                    let elemCat = elem["category"].element!.text
-                    if (elemCat.contains("Спорт")) {
-                        //                        var catArr = [String]()
-                        self.category = elem["description"].element?.text
-                        self.arrCategory.append(self.category ?? "")
-                    }
-                }
-                print(self.arrCategory)
                 self.table.reloadData()
             }
             
@@ -150,7 +162,7 @@ extension Date: XMLElementDeserializable, XMLAttributeDeserializable {
     
     private static func stringToDate(_ dateAsString: String) -> Date? {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
+        dateFormatter.dateFormat = "MMM d, h:mm a"
         return dateFormatter.date(from: dateAsString)
     }
 }

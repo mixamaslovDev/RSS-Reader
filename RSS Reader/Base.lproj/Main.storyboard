@@ -15,38 +15,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <stackView key="tableHeaderView" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" id="6BM-Ut-lWx">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KaU-Wa-1Xy">
-                                    <rect key="frame" x="0.0" y="0.0" width="102" height="44"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                    <state key="normal" title="Происшествия"/>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gby-Sv-YmY">
-                                    <rect key="frame" x="104" y="0.0" width="102" height="44"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                    <state key="normal" title="Общество"/>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PTi-yf-vwp">
-                                    <rect key="frame" x="208" y="0.0" width="102" height="44"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                    <state key="normal" title="Спорт"/>
-                                    <connections>
-                                        <action selector="sportFilter:" destination="aOJ-8W-Gvj" eventType="touchUpInside" id="9K1-8O-PYh"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zuW-ow-aX7">
-                                    <rect key="frame" x="312" y="0.0" width="102" height="44"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                    <state key="normal" title="Экономика"/>
-                                </button>
-                            </subviews>
-                        </stackView>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="newsCellId" rowHeight="83" id="qF9-SV-vYx" customClass="NewsCell" customModule="RSS_Reader" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="414" height="83"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="83"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qF9-SV-vYx" id="oJf-9K-8ec">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="83"/>
@@ -94,9 +65,19 @@
                             <outlet property="delegate" destination="aOJ-8W-Gvj" id="P87-r5-Sqp"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Новости" id="5Vg-R2-hLU"/>
+                    <navigationItem key="navigationItem" title="Новости" id="5Vg-R2-hLU">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="s5p-BX-0DD">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cXs-LF-b9L">
+                                <rect key="frame" x="302" y="7" width="92" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Спорт"/>
+                                <connections>
+                                    <action selector="filterSport:" destination="aOJ-8W-Gvj" eventType="touchUpInside" id="8ko-vI-mA6"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="sportFilterBtn" destination="PTi-yf-vwp" id="u8m-oM-ZHQ"/>
                         <outlet property="table" destination="1KN-bj-dI9" id="sUm-wG-qF4"/>
                     </connections>
                 </tableViewController>
