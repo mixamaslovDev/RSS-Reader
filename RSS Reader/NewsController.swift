@@ -34,14 +34,12 @@ class NewsController: UITableViewController {
         getNews()
         table.refreshControl = myrefreshcontrol
     }
-    
-    // MARK: - Table view data source
-    
-    
+    // MARK: - Pull to update
     @objc private func refreshNews(sender: UIRefreshControl) {
         getNews()
         sender.endRefreshing()
     }
+    // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return news.count
@@ -63,15 +61,17 @@ class NewsController: UITableViewController {
             newVC.urlNews = arrImages[indexPath!.row]
         }
     }
+    // MARK: - Очистка кэш URL запросов
     
-    /// Очистка кэш URL запросов
     func clearURLCache(){
-    URLCache.shared.removeAllCachedResponses()
+        URLCache.shared.removeAllCachedResponses()
     }
     
     // MARK: - Фильтр по категории спорт
+    
     @IBAction func filterSport(_ sender: UIButton) {
         news = [String]()
+        dateNews = [String]()
         clearURLCache()
         let _ = Alamofire.request("http://www.vesti.ru/vesti.rss", method: .get).response {
             response in
@@ -79,12 +79,15 @@ class NewsController: UITableViewController {
                 let xml = SWXMLHash.parse(data)
                 for elem in xml["rss"]["channel"]["item"].all {
                     let elem = elem
-                        .filterChildren { _, index in index == 3 || index == 5
+                        .filterChildren { _, index in index == 3 || index == 5 || index == 4
                     }
+                    
                     let elemCat = elem["category"].element!.text
                     if (elemCat.contains("Спорт")) {
                         self.category = elem["description"].element?.text
-                        
+                        self.dateNews = (xml["rss"]["channel"]["item"].all.map{ elem in
+                            try! elem["pubDate"].value()
+                        })
                         self.news.append(self.category ?? "")
                     }
                 }
@@ -93,39 +96,32 @@ class NewsController: UITableViewController {
         }
     }
     
-    // MARK: - Запрос и получение данных
+    // MARK: - Запрос и получение данных новостей
     
     func getNews(){
         clearURLCache()
-        /// Запрос к источнику с новостями
+        /// Запрос к источнику с
         let _ = Alamofire.request("http://www.vesti.ru/vesti.rss", method: .get).response {
             response in
             if let data = response.data {
                 let xml = SWXMLHash.parse(data)
-                do {
-                    let dt: String = try xml["rss"]["channel"]["item"]["pubDate"].value()
-                    print(dt)
-                }
-                catch {
-                    print("Error")
-                }
                 
-                /// Получение заголовка новости
+                /// Получение заголовка 
                 self.news = (xml["rss"]["channel"]["item"].all.map{ elem in
                     elem["title"].element!.text
                 })
                 
-                /// Получение полного текста новости
+                /// Получение полного текста
                 self.newsFullText = (xml["rss"]["channel"]["item"].all.map{ elem in
                     elem["yandex:full-text"].element!.text
                 })
                 
-                /// Получение даты публикации новости
+                /// Получение дат публикаций
                 self.dateNews = (xml["rss"]["channel"]["item"].all.map{ elem in
                     try! elem["pubDate"].value()
                 })
                 
-                /// Получение изображения новости
+                /// Получение изображений
                 for elem in xml["rss"]["channel"]["item"].all {
                     for i in elem["enclosure"].all {
                         self.imageNews = i.element?.attribute(by: "url")?.text
@@ -134,35 +130,7 @@ class NewsController: UITableViewController {
                 }
                 self.table.reloadData()
             }
-            
         }
     }
 }
 
-extension Date: XMLElementDeserializable, XMLAttributeDeserializable {
-    public static func deserialize(_ element: XMLElement) throws -> Date {
-        let date = stringToDate(element.text)
-        
-        guard let validDate = date else {
-            throw XMLDeserializationError.typeConversionFailed(type: "Date", element: element)
-        }
-        
-        return validDate
-    }
-    
-    public static func deserialize(_ attribute: XMLAttribute) throws -> Date {
-        let date = stringToDate(attribute.text)
-        
-        guard let validDate = date else {
-            throw XMLDeserializationError.attributeDeserializationFailed(type: "Date", attribute: attribute)
-        }
-        
-        return validDate
-    }
-    
-    private static func stringToDate(_ dateAsString: String) -> Date? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM d, h:mm a"
-        return dateFormatter.date(from: dateAsString)
-    }
-}
