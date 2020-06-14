@@ -10,9 +10,9 @@ import UIKit
 import Kingfisher
 
 class DetailNewsController: UIViewController {
-
     
     @IBOutlet weak var textNews: UILabel!
+    
     var news = String()
     var fullNews = String()
     var urlNews = String()
