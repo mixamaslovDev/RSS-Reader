@@ -66,7 +66,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Новости" id="5Vg-R2-hLU">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="s5p-BX-0DD">
+                        <barButtonItem key="rightBarButtonItem" style="done" id="s5p-BX-0DD">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cXs-LF-b9L">
                                 <rect key="frame" x="302" y="7" width="92" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

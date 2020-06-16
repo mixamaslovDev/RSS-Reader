@@ -61,17 +61,20 @@ class NewsController: UITableViewController {
             newVC.urlNews = arrImages[indexPath!.row]
         }
     }
-    // MARK: - Очистка кэш URL запросов
+    // MARK: - Очистка кэш URL запросов и загруженных данных
     
     func clearURLCache(){
+        news = [String]()
+        dateNews = [String]()
+        imageNews = nil
+        arrImages = [String]()
         URLCache.shared.removeAllCachedResponses()
     }
     
     // MARK: - Фильтр по категории спорт
     
     @IBAction func filterSport(_ sender: UIButton) {
-        news = [String]()
-        dateNews = [String]()
+        
         clearURLCache()
         let _ = Alamofire.request("http://www.vesti.ru/vesti.rss", method: .get).response {
             response in
@@ -79,7 +82,7 @@ class NewsController: UITableViewController {
                 let xml = SWXMLHash.parse(data)
                 for elem in xml["rss"]["channel"]["item"].all {
                     let elem = elem
-                        .filterChildren { _, index in index == 3 || index == 5 || index == 4
+                        .filterChildren { _, index in index == 3 || index == 5 || index == 4 || index == 6
                     }
                     
                     let elemCat = elem["category"].element!.text
@@ -88,6 +91,10 @@ class NewsController: UITableViewController {
                         self.dateNews = (xml["rss"]["channel"]["item"].all.map{ elem in
                             try! elem["pubDate"].value()
                         })
+                        for i in elem["enclosure"].all {
+                            self.imageNews = i.element?.attribute(by: "url")?.text
+                        }
+                        self.arrImages.append(self.imageNews ?? "")
                         self.news.append(self.category ?? "")
                     }
                 }
@@ -125,11 +132,11 @@ class NewsController: UITableViewController {
                 for elem in xml["rss"]["channel"]["item"].all {
                     for i in elem["enclosure"].all {
                         self.imageNews = i.element?.attribute(by: "url")?.text
-                        self.arrImages.append(self.imageNews ?? "")
                     }
+                    self.arrImages.append(self.imageNews ?? "")
                 }
-                self.table.reloadData()
             }
+            self.table.reloadData()
         }
     }
 }

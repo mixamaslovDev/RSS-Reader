@@ -20,7 +20,7 @@
 
 /* Begin PBXFileReference section */
 		418E793A3DC8CD57C4E2F1E9 /* Pods-RSS Reader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSS Reader.release.xcconfig"; path = "Target Support Files/Pods-RSS Reader/Pods-RSS Reader.release.xcconfig"; sourceTree = "<group>"; };
-		456CAD272493B48500302C6F /* RSS Reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RSS Reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		456CAD272493B48500302C6F /* ВестиRU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ВестиRU.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		456CAD2A2493B48500302C6F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		456CAD2C2493B48500302C6F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		456CAD312493B48500302C6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -59,7 +59,7 @@
 		456CAD282493B48500302C6F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				456CAD272493B48500302C6F /* RSS Reader.app */,
+				456CAD272493B48500302C6F /* ВестиRU.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -71,10 +71,10 @@
 				456CAD2C2493B48500302C6F /* SceneDelegate.swift */,
 				456CAD422493BEE700302C6F /* NewsController.swift */,
 				456CAD3E2493B51B00302C6F /* DetailNewsController.swift */,
-				456CAD302493B48500302C6F /* Main.storyboard */,
 				456CAD402493BC4100302C6F /* Cell.swift */,
-				456CAD332493B48D00302C6F /* Assets.xcassets */,
+				456CAD302493B48500302C6F /* Main.storyboard */,
 				456CAD352493B48D00302C6F /* LaunchScreen.storyboard */,
+				456CAD332493B48D00302C6F /* Assets.xcassets */,
 				456CAD382493B48D00302C6F /* Info.plist */,
 			);
 			path = "RSS Reader";
@@ -116,7 +116,7 @@
 			);
 			name = "RSS Reader";
 			productName = "RSS Reader";
-			productReference = 456CAD272493B48500302C6F /* RSS Reader.app */;
+			productReference = 456CAD272493B48500302C6F /* ВестиRU.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -369,7 +369,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Mikhail.Maslov.RSS-Reader";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "ВестиRU";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -388,7 +388,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Mikhail.Maslov.RSS-Reader";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "ВестиRU";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
