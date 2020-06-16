@@ -10,13 +10,13 @@
         <!--Новости-->
         <scene sceneID="qqc-WA-0qm">
             <objects>
-                <tableViewController id="aOJ-8W-Gvj" customClass="NewsController" customModule="RSS_Reader" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="aOJ-8W-Gvj" customClass="NewsController" customModule="ВестиRU" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="1KN-bj-dI9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="newsCellId" rowHeight="83" id="qF9-SV-vYx" customClass="NewsCell" customModule="RSS_Reader" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="newsCellId" rowHeight="83" id="qF9-SV-vYx" customClass="NewsCell" customModule="ВестиRU" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="83"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qF9-SV-vYx" id="oJf-9K-8ec">
@@ -106,29 +106,29 @@
         <!--Detail News Controller-->
         <scene sceneID="DBG-mG-wn0">
             <objects>
-                <viewController id="IbQ-h5-vKS" customClass="DetailNewsController" customModule="RSS_Reader" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="IbQ-h5-vKS" customClass="DetailNewsController" customModule="ВестиRU" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UaX-CB-djd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EWP-ft-Pvm">
-                                <rect key="frame" x="20" y="271" width="374" height="27.5"/>
+                                <rect key="frame" x="18" y="271" width="378" height="27.5"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="23"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sXy-JZ-qYw">
-                                <rect key="frame" x="10" y="325" width="394" height="571"/>
+                                <rect key="frame" x="10" y="319.5" width="394" height="576.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5kH-ss-zUq">
-                                        <rect key="frame" x="10" y="8" width="374" height="20.5"/>
+                                        <rect key="frame" x="176" y="8" width="42" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="5kH-ss-zUq" firstAttribute="leading" secondItem="sXy-JZ-qYw" secondAttribute="leading" constant="10" id="1YL-qk-jbl"/>
+                                    <constraint firstItem="5kH-ss-zUq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sXy-JZ-qYw" secondAttribute="leading" constant="10" id="1YL-qk-jbl"/>
                                     <constraint firstItem="5kH-ss-zUq" firstAttribute="trailing" secondItem="sXy-JZ-qYw" secondAttribute="trailingMargin" id="3YS-6s-gQ9"/>
                                     <constraint firstItem="5kH-ss-zUq" firstAttribute="top" secondItem="sXy-JZ-qYw" secondAttribute="topMargin" id="INQ-kX-lJH"/>
                                     <constraint firstItem="5kH-ss-zUq" firstAttribute="bottom" secondItem="sXy-JZ-qYw" secondAttribute="bottomMargin" id="kjC-zt-Au6"/>
@@ -143,19 +143,30 @@
                                     <constraint firstAttribute="height" constant="155" id="W8u-O3-r0O"/>
                                 </constraints>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rUv-ac-7Sk" customClass="SeparatorView">
+                                <rect key="frame" x="22" y="308.5" width="370" height="1"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="370" id="ZTj-RA-71K"/>
+                                    <constraint firstAttribute="height" constant="1" id="afq-gt-P1u"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="sXy-JZ-qYw" firstAttribute="leading" secondItem="ard-jR-B4Z" secondAttribute="leading" constant="10" id="1RH-hv-Aj4"/>
+                            <constraint firstItem="sXy-JZ-qYw" firstAttribute="top" secondItem="rUv-ac-7Sk" secondAttribute="bottom" constant="10" id="9ww-H0-AFA"/>
+                            <constraint firstItem="rUv-ac-7Sk" firstAttribute="centerX" secondItem="ard-jR-B4Z" secondAttribute="centerX" id="D3v-p4-Ty2"/>
                             <constraint firstItem="YGR-VZ-eNY" firstAttribute="centerX" secondItem="EWP-ft-Pvm" secondAttribute="centerX" id="FbR-cy-zpz"/>
                             <constraint firstItem="YGR-VZ-eNY" firstAttribute="leading" secondItem="ard-jR-B4Z" secondAttribute="leading" id="QnQ-k8-8Q8"/>
-                            <constraint firstItem="ard-jR-B4Z" firstAttribute="trailing" secondItem="EWP-ft-Pvm" secondAttribute="trailing" constant="20" id="c1W-sk-jp8"/>
+                            <constraint firstItem="ard-jR-B4Z" firstAttribute="trailing" secondItem="YGR-VZ-eNY" secondAttribute="trailing" id="Xof-CU-uMD"/>
+                            <constraint firstItem="ard-jR-B4Z" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="EWP-ft-Pvm" secondAttribute="trailing" id="c1W-sk-jp8"/>
+                            <constraint firstItem="rUv-ac-7Sk" firstAttribute="top" secondItem="EWP-ft-Pvm" secondAttribute="bottom" constant="10" id="nIM-Gl-Fzo"/>
                             <constraint firstItem="ard-jR-B4Z" firstAttribute="trailing" secondItem="sXy-JZ-qYw" secondAttribute="trailing" constant="10" id="sZl-gT-ecX"/>
                             <constraint firstItem="sXy-JZ-qYw" firstAttribute="centerX" secondItem="ard-jR-B4Z" secondAttribute="centerX" id="u9C-u4-3jm"/>
                             <constraint firstItem="YGR-VZ-eNY" firstAttribute="top" secondItem="ard-jR-B4Z" secondAttribute="top" constant="3" id="uzB-fk-y6n"/>
-                            <constraint firstItem="EWP-ft-Pvm" firstAttribute="leading" secondItem="ard-jR-B4Z" secondAttribute="leading" constant="20" id="vAT-GL-jyL"/>
+                            <constraint firstItem="EWP-ft-Pvm" firstAttribute="leading" secondItem="ard-jR-B4Z" secondAttribute="leading" constant="18" id="vAT-GL-jyL"/>
                             <constraint firstAttribute="bottomMargin" secondItem="sXy-JZ-qYw" secondAttribute="bottom" constant="-34" id="whX-sD-XTf"/>
-                            <constraint firstItem="sXy-JZ-qYw" firstAttribute="top" secondItem="EWP-ft-Pvm" secondAttribute="bottom" constant="26.5" id="xaE-vU-FjW"/>
                             <constraint firstItem="EWP-ft-Pvm" firstAttribute="top" secondItem="YGR-VZ-eNY" secondAttribute="bottom" constant="25" id="yJt-sW-cSC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ard-jR-B4Z"/>
@@ -169,7 +180,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tyt-8S-JOa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2867" y="115"/>
+            <point key="canvasLocation" x="2866.666666666667" y="114.50892857142857"/>
         </scene>
     </scenes>
 </document>
