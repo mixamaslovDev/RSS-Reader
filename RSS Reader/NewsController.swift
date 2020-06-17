@@ -7,19 +7,10 @@
 //
 
 import UIKit
-import Alamofire
-import SWXMLHash
 
 class NewsController: UITableViewController {
-    
-    var news = [String]() ///  Новости
-    var dateNews = [String]() /// Даты новостей
-    var newsFullText = [String]() /// Полный текст новостей
-    var imageNews: String? /// Изображение новости
-    var arrImages = [String]() /// Изоюражения новостей
-    var arrCategory = [String]() /// Категории новосткй
-    var category: String? /// Категория новости
-    
+
+    var request = Requests()
     let myrefreshcontrol: UIRefreshControl = {
         let refreshcontol = UIRefreshControl()
         refreshcontol.addTarget(self, action: #selector(refreshNews(sender:)), for: .valueChanged)
@@ -28,27 +19,46 @@ class NewsController: UITableViewController {
     }()
     
     @IBOutlet weak var table: UITableView!
+    @IBOutlet var blurView: UIVisualEffectView!
+    @IBOutlet var filterView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getNews()
+        request.getNews()
+        reload()
+        blurView.bounds = self.view.bounds
+        filterView.bounds = CGRect(x: 0, y: 0, width: view.bounds.width * 0.9, height: view.bounds.height * 0.4)
         table.refreshControl = myrefreshcontrol
     }
+
+    
     // MARK: - Pull to update
+    
     @objc private func refreshNews(sender: UIRefreshControl) {
-        getNews()
+        request.getNews()
+        reload()
         sender.endRefreshing()
     }
+    
+    // MARK: - Reload tableview
+    
+    func reload(){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+            self.tableView.reloadData()
+        })
+    }
+    
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return news.count
+        return request.newsArr.count
     }
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "newsCellId", for: indexPath) as! NewsCell
-        cell.textNews.text = news[indexPath.row]
-        cell.dateNews.text = dateNews[indexPath.row]
+        cell.textNews.text = request.newsArr[indexPath.row]
+        cell.dateNews.text = request.dateNews[indexPath.row]
         return cell
     }
     
@@ -56,88 +66,48 @@ class NewsController: UITableViewController {
         if segue.identifier == "showNewsDetail" {
             let indexPath = tableView.indexPathForSelectedRow
             let newVC: DetailNewsController = segue.destination as! DetailNewsController
-            newVC.news = news[indexPath!.row]
-            newVC.fullNews = newsFullText[indexPath!.row]
-            newVC.urlNews = arrImages[indexPath!.row]
-        }
-    }
-    // MARK: - Очистка кэш URL запросов и загруженных данных
-    
-    func clearURLCache(){
-        news = [String]()
-        dateNews = [String]()
-        imageNews = nil
-        arrImages = [String]()
-        URLCache.shared.removeAllCachedResponses()
-    }
-    
-    // MARK: - Фильтр по категории спорт
-    
-    @IBAction func filterSport(_ sender: UIButton) {
-        
-        clearURLCache()
-        let _ = Alamofire.request("http://www.vesti.ru/vesti.rss", method: .get).response {
-            response in
-            if let data = response.data {
-                let xml = SWXMLHash.parse(data)
-                for elem in xml["rss"]["channel"]["item"].all {
-                    let elem = elem
-                        .filterChildren { _, index in index == 3 || index == 5 || index == 4 || index == 6
-                    }
-                    
-                    let elemCat = elem["category"].element!.text
-                    if (elemCat.contains("Спорт")) {
-                        self.category = elem["description"].element?.text
-                        self.dateNews = (xml["rss"]["channel"]["item"].all.map{ elem in
-                            try! elem["pubDate"].value()
-                        })
-                        for i in elem["enclosure"].all {
-                            self.imageNews = i.element?.attribute(by: "url")?.text
-                        }
-                        self.arrImages.append(self.imageNews ?? "")
-                        self.news.append(self.category ?? "")
-                    }
-                }
-                self.table.reloadData()
-            }
+            newVC.news = request.newsArr[indexPath!.row]
+            newVC.fullNews = request.newsFullTextArr[indexPath!.row]
+            newVC.urlNews = request.imagesArr[indexPath!.row]
         }
     }
     
-    // MARK: - Запрос и получение данных новостей
+    // MARK: - Filter by category
     
-    func getNews(){
-        clearURLCache()
-        /// Запрос к источнику с
-        let _ = Alamofire.request("http://www.vesti.ru/vesti.rss", method: .get).response {
-            response in
-            if let data = response.data {
-                let xml = SWXMLHash.parse(data)
-                
-                /// Получение заголовка 
-                self.news = (xml["rss"]["channel"]["item"].all.map{ elem in
-                    elem["title"].element!.text
-                })
-                
-                /// Получение полного текста
-                self.newsFullText = (xml["rss"]["channel"]["item"].all.map{ elem in
-                    elem["yandex:full-text"].element!.text
-                })
-                
-                /// Получение дат публикаций
-                self.dateNews = (xml["rss"]["channel"]["item"].all.map{ elem in
-                    try! elem["pubDate"].value()
-                })
-                
-                /// Получение изображений
-                for elem in xml["rss"]["channel"]["item"].all {
-                    for i in elem["enclosure"].all {
-                        self.imageNews = i.element?.attribute(by: "url")?.text
-                    }
-                    self.arrImages.append(self.imageNews ?? "")
-                }
-            }
-            self.table.reloadData()
-        }
+    @IBAction func filterButton(_ sender: UIButton) {
+        showFilter(desireView: blurView)
+        showFilter(desireView: filterView)
     }
+    
+    @IBAction func socFilter(_ sender: UIButton) {
+        request.socFilter()
+        hideFilter(desireView: blurView)
+        hideFilter(desireView: filterView)
+        reload()
+    }
+    
+    // MARK: - Show, hide filter
+    
+    func hideFilter(desireView: UIView) {
+        table.isScrollEnabled = true
+        UIView.animate(withDuration: 0.3, animations:  {
+            desireView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+            desireView.alpha = 0
+        })
+    }
+    
+    func showFilter(desireView: UIView) {
+        let background = self.view!
+        background.addSubview(desireView)
+        table.isScrollEnabled = false
+        desireView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+        desireView.alpha = 0
+        desireView.center = background.center
+        UIView.animate(withDuration: 0.3, animations:  {
+            desireView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            desireView.alpha = 1
+        })
+    }
+    
 }
 

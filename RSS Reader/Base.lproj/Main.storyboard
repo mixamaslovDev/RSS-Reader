@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ojf-ei-eRb">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -33,7 +33,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vwI-g4-9MP">
-                                            <rect key="frame" x="235" y="61" width="165" height="20.5"/>
+                                            <rect key="frame" x="235" y="60.999999999999993" width="165" height="20.666666666666664"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="Pqf-Ni-dd5"/>
                                             </constraints>
@@ -70,18 +70,74 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cXs-LF-b9L">
                                 <rect key="frame" x="302" y="7" width="92" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Спорт"/>
+                                <state key="normal" title="Фильтр"/>
                                 <connections>
-                                    <action selector="filterSport:" destination="aOJ-8W-Gvj" eventType="touchUpInside" id="8ko-vI-mA6"/>
+                                    <action selector="filterButton:" destination="aOJ-8W-Gvj" eventType="touchUpInside" id="x7N-X7-zkW"/>
                                 </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="blurView" destination="JfF-bl-5Sz" id="RRm-Zh-biK"/>
+                        <outlet property="filterView" destination="R0z-UW-tSq" id="7mt-hf-Zhd"/>
                         <outlet property="table" destination="1KN-bj-dI9" id="sUm-wG-qF4"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KIU-vz-MTg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" id="JfF-bl-5Sz">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="295"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="OsZ-lZ-aE2">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="295"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <blurEffect style="regular"/>
+                </visualEffectView>
+                <view contentMode="scaleToFill" horizontalHuggingPriority="500" verticalHuggingPriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="R0z-UW-tSq" customClass="FilterView" customModule="ВестиRU" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="250" height="500"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="GbD-FP-9jM">
+                            <rect key="frame" x="98" y="94" width="68" height="356"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vkw-on-Hrg">
+                                    <rect key="frame" x="0.0" y="0.0" width="68" height="49.333333333333336"/>
+                                    <state key="normal" title="Общество"/>
+                                    <connections>
+                                        <action selector="socFilter:" destination="aOJ-8W-Gvj" eventType="touchUpInside" id="h5B-Z3-lwc"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0of-sA-c4h">
+                                    <rect key="frame" x="12" y="61.333333333333343" width="44" height="49.333333333333343"/>
+                                    <state key="normal" title="Спорт"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8m0-OY-L9D">
+                                    <rect key="frame" x="8" y="122.66666666666664" width="52" height="49.333333333333329"/>
+                                    <state key="normal" title="В мире"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="unK-KY-YuN">
+                                    <rect key="frame" x="0.0" y="184" width="68" height="49.333333333333343"/>
+                                    <state key="normal" title="Экономика"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nmS-8Q-bSF">
+                                    <rect key="frame" x="0.0" y="245.33333333333334" width="68" height="49.333333333333343"/>
+                                    <state key="normal" title="Происшествия"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AgJ-Bw-GvE">
+                                    <rect key="frame" x="7" y="306.66666666666669" width="54" height="49.333333333333314"/>
+                                    <state key="normal" title="Hi-Tech"/>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstItem="GbD-FP-9jM" firstAttribute="top" secondItem="W8t-6U-tho" secondAttribute="top" constant="50" id="3AT-Vh-PKm"/>
+                        <constraint firstItem="W8t-6U-tho" firstAttribute="trailing" secondItem="GbD-FP-9jM" secondAttribute="trailing" constant="84" id="NzH-Pq-ze8"/>
+                        <constraint firstItem="W8t-6U-tho" firstAttribute="bottom" secondItem="GbD-FP-9jM" secondAttribute="bottom" constant="50" id="Zdh-Ra-HcK"/>
+                        <constraint firstItem="GbD-FP-9jM" firstAttribute="leading" secondItem="W8t-6U-tho" secondAttribute="leading" constant="98" id="g1o-w6-miJ"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="W8t-6U-tho"/>
+                </view>
             </objects>
             <point key="canvasLocation" x="2008.6956521739132" y="114.50892857142857"/>
         </scene>
@@ -112,16 +168,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EWP-ft-Pvm">
-                                <rect key="frame" x="18" y="271" width="378" height="27.5"/>
+                                <rect key="frame" x="18" y="271" width="378" height="27.666666666666686"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="23"/>
                                 <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sXy-JZ-qYw">
-                                <rect key="frame" x="10" y="319.5" width="394" height="576.5"/>
+                                <rect key="frame" x="10" y="319.66666666666669" width="394" height="576.33333333333326"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5kH-ss-zUq">
-                                        <rect key="frame" x="176" y="8" width="42" height="20.5"/>
+                                        <rect key="frame" x="176.33333333333334" y="7.9999999999999982" width="41.666666666666657" height="20.333333333333329"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -144,7 +200,7 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rUv-ac-7Sk" customClass="SeparatorView">
-                                <rect key="frame" x="22" y="308.5" width="370" height="1"/>
+                                <rect key="frame" x="22" y="308.66666666666669" width="370" height="1"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="370" id="ZTj-RA-71K"/>

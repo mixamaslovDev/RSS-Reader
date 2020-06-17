@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2628E2378F3CE43F021CE411 /* Pods_RSS_Reader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D97F16C2013F52F8E39FF1BC /* Pods_RSS_Reader.framework */; };
+		4521358D24998017003D721C /* Requests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4521358C24998016003D721C /* Requests.swift */; };
 		456CAD2B2493B48500302C6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456CAD2A2493B48500302C6F /* AppDelegate.swift */; };
 		456CAD2D2493B48500302C6F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456CAD2C2493B48500302C6F /* SceneDelegate.swift */; };
 		456CAD322493B48500302C6F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 456CAD302493B48500302C6F /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		418E793A3DC8CD57C4E2F1E9 /* Pods-RSS Reader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSS Reader.release.xcconfig"; path = "Target Support Files/Pods-RSS Reader/Pods-RSS Reader.release.xcconfig"; sourceTree = "<group>"; };
+		4521358C24998016003D721C /* Requests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requests.swift; sourceTree = "<group>"; };
 		456CAD272493B48500302C6F /* ВестиRU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ВестиRU.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		456CAD2A2493B48500302C6F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		456CAD2C2493B48500302C6F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				456CAD2A2493B48500302C6F /* AppDelegate.swift */,
 				456CAD2C2493B48500302C6F /* SceneDelegate.swift */,
 				456CAD422493BEE700302C6F /* NewsController.swift */,
+				4521358C24998016003D721C /* Requests.swift */,
 				456CAD3E2493B51B00302C6F /* DetailNewsController.swift */,
 				456CAD402493BC4100302C6F /* Cell.swift */,
 				456CAD302493B48500302C6F /* Main.storyboard */,
@@ -216,6 +219,7 @@
 				456CAD412493BC4100302C6F /* Cell.swift in Sources */,
 				456CAD3F2493B51B00302C6F /* DetailNewsController.swift in Sources */,
 				456CAD432493BEE700302C6F /* NewsController.swift in Sources */,
+				4521358D24998017003D721C /* Requests.swift in Sources */,
 				456CAD2D2493B48500302C6F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
